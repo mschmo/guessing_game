@@ -1,3 +1,11 @@
+/* The Ultimate Guessing Game */
+/* TODO Game Features:
+*  - Difficulty levels
+*  - Score keeping
+*  - Secret number changes
+*  - Powerups/Traps
+*/
+
 extern crate rand;
 
 use std::io;
@@ -10,7 +18,8 @@ fn main() {
 
     println!("Input a number between 1 and 100");
 
-    loop {
+    let mut count = 5;
+    while count > 0 {
         let mut guess = String::new();
         io::stdin().read_line(&mut guess).expect("Failed to read line.");
         let trimmed_guess = guess.trim();
@@ -37,6 +46,11 @@ fn main() {
             }
         }
 
-        println!("Please guess again");
+        count = count - 1;
+        if count > 0 {
+            println!("Please guess again. {} guesses remainging.", count);
+        } else {
+            println!("Oh no! You ran out of guesses. The answer was {}.", secret_number);
+        }
     }
 }
