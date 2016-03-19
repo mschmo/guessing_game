@@ -4,6 +4,7 @@
 *  - Score keeping
 *  - Secret number changes
 *  - Powerups/Traps
+*  - Collect points to buy guesses/hints
 */
 
 extern crate rand;
@@ -12,8 +13,7 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
-
-fn main() {
+fn game() {
     let secret_number = rand::thread_rng().gen_range(1, 101);
 
     println!("Input a number between 1 and 100");
@@ -53,4 +53,9 @@ fn main() {
             println!("Oh no! You ran out of guesses. The answer was {}.", secret_number);
         }
     }
+}
+
+
+fn main() {
+    game();
 }
