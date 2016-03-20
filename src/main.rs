@@ -7,14 +7,14 @@
 *  - Collect points to buy guesses/hints
 */
 
-extern crate rand;
-
 use std::io;
 use std::cmp::Ordering;
-use rand::Rng;
+
+mod helpers;
+
 
 fn game() {
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+    let secret_number = helpers::get_random_number(1, 100);
 
     println!("Input a number between 1 and 100");
 
@@ -29,7 +29,7 @@ fn game() {
             break;
         }
 
-        let guess: u32 = match trimmed_guess.parse() {
+        let guess: i32 = match trimmed_guess.parse() {
             Ok(num) => num,
             Err(_) => {
                 println!("Please input a number...");
