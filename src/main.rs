@@ -13,16 +13,12 @@ use std::cmp::Ordering;
 mod helpers;
 
 
-fn game() {
-
+fn menu() -> u32 {
     let mut diff_level: u32 = 1;
     let mut begin: bool = false;
+    println!("Please select a difficulty level:");
+    println!("1. Easy\n2. Medium\n3. Hard");
     while !begin {
-        println!("Please select a difficulty level:");
-        println!("1. Easy");
-        println!("2. Medium");
-        println!("3. Hard");
-
         let mut selected_level = String::new();
         io::stdin().read_line(&mut selected_level).expect("Failed to read line.");
         diff_level = match selected_level.trim().parse() {
@@ -41,7 +37,12 @@ fn game() {
             }
         };
     }
+    diff_level
+}
 
+
+fn game() {
+    let diff_level: u32 = menu();
     let mut max_number: i32 = 50;
     if diff_level == 1 {
         max_number = 50;
