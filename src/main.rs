@@ -14,9 +14,45 @@ mod helpers;
 
 
 fn game() {
-    let secret_number = helpers::get_random_number(1, 100);
 
-    println!("Input a number between 1 and 100");
+    let mut diff_level: u32 = 1;
+    let mut begin: bool = false;
+    while !begin {
+        println!("Please select a difficulty level:");
+        println!("1. Easy");
+        println!("2. Medium");
+        println!("3. Hard");
+
+        let mut selected_level = String::new();
+        io::stdin().read_line(&mut selected_level).expect("Failed to read line.");
+        diff_level = match selected_level.trim().parse() {
+            Ok(num) => {
+                if num < 1 || num > 3 {
+                    println!("Must be 1, 2, or 3.");
+                    continue;
+                } else {
+                    begin = true;
+                    num
+                }
+            }
+            Err(_) => {
+                println!("Please input a number 1, 2, or 3.");
+                continue;
+            }
+        };
+    }
+
+    let mut max_number: i32 = 50;
+    if diff_level == 1 {
+        max_number = 50;
+    } else if diff_level == 2 {
+        max_number = 100;
+    } else if diff_level == 3 {
+        max_number = 200;
+    }
+    let secret_number = helpers::get_random_number(1, max_number);
+
+    println!("Input a number between 1 and {}", max_number);
 
     let mut count = 5;
     while count > 0 {
@@ -57,5 +93,6 @@ fn game() {
 
 
 fn main() {
+    println!("Welcome to the Guessing Game!");
     game();
 }
