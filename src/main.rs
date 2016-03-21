@@ -1,6 +1,5 @@
 /* The Ultimate Guessing Game */
 /* TODO Game Features:
-*  - Difficulty levels
 *  - Score keeping
 *  - Secret number changes
 *  - Powerups/Traps
@@ -15,24 +14,24 @@ mod helpers;
 
 fn menu() -> u32 {
     let mut diff_level: u32 = 1;
-    let mut begin: bool = false;
-    println!("Please select a difficulty level:");
-    println!("1. Easy\n2. Medium\n3. Hard");
-    while !begin {
+    let mut selected: bool = false;
+    println!("Please select a difficulty level or exit:");
+    println!("1. Easy\n2. Medium\n3. Hard\n4. Exit");
+    while !selected {
         let mut selected_level = String::new();
         io::stdin().read_line(&mut selected_level).expect("Failed to read line.");
         diff_level = match selected_level.trim().parse() {
             Ok(num) => {
-                if num < 1 || num > 3 {
-                    println!("Must be 1, 2, or 3.");
+                if num < 1 || num > 4 {
+                    println!("Must be 1-4.");
                     continue;
                 } else {
-                    begin = true;
+                    selected = true;
                     num
                 }
             }
             Err(_) => {
-                println!("Please input a number 1, 2, or 3.");
+                println!("Please input a number 1-4.");
                 continue;
             }
         };
@@ -41,16 +40,20 @@ fn menu() -> u32 {
 }
 
 
-fn game() {
+fn game() -> bool {
     let diff_level: u32 = menu();
-    let mut max_number: i32 = 50;
-    if diff_level == 1 {
-        max_number = 50;
-    } else if diff_level == 2 {
-        max_number = 100;
-    } else if diff_level == 3 {
-        max_number = 200;
-    }
+    let max_number: i32 =
+        if diff_level == 1 {
+            50
+        } else if diff_level == 2 {
+            100
+        } else if diff_level == 3 {
+            200
+        } else {
+            // Exit game
+            println!("Goodbye.");
+            return false;
+        };
     let secret_number = helpers::get_random_number(1, max_number);
 
     println!("Input a number between 1 and {}", max_number);
@@ -90,10 +93,14 @@ fn game() {
             println!("Oh no! You ran out of guesses. The answer was {}.", secret_number);
         }
     }
+    true
 }
 
 
 fn main() {
     println!("Welcome to the Guessing Game!");
-    game();
+    let mut play: bool = true;
+    while play {
+        play = game();
+    }
 }
