@@ -42,18 +42,16 @@ fn menu() -> u32 {
 
 fn game() -> bool {
     let diff_level: u32 = menu();
-    let max_number: i32 =
-        if diff_level == 1 {
-            50
-        } else if diff_level == 2 {
-            100
-        } else if diff_level == 3 {
-            200
-        } else {
+    let max_number = match diff_level {
+        1 => 50,
+        2 => 100,
+        3 => 200,
+        _ => {
             // Exit game
             println!("Goodbye.");
             return false;
-        };
+        }
+    };
     let secret_number = helpers::get_random_number(1, max_number);
 
     println!("Input a number between 1 and {}", max_number);
