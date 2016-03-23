@@ -13,19 +13,19 @@ mod helpers;
 
 
 fn menu() -> u32 {
-    let mut diff_level = 1;
+    let mut selection = 1;
     let mut selected = false;
     println!("Please select a difficulty level or exit:");
     println!("1. Easy\n2. Medium\n3. Hard\n4. Exit");
     while !selected {
         let mut selected_level = String::new();
         io::stdin().read_line(&mut selected_level).expect("Failed to read line.");
-        diff_level = match selected_level.trim().parse() {
+        selection = match selected_level.trim().parse() {
             Ok(num) if num < 1 || num > 4 => {
                 println!("Must be 1-4.");
                 continue;
             },
-            Ok(num) {
+            Ok(num) => {
                 selected = true;
                 num
             }
@@ -35,13 +35,13 @@ fn menu() -> u32 {
             }
         };
     }
-    diff_level
+    selection
 }
 
 
 fn game() -> bool {
-    let diff_level = menu();
-    let max_number = match diff_level {
+    let menu_selection = menu();
+    let max_number = match menu_selection {
         1 => 50,
         2 => 100,
         3 => 200,
