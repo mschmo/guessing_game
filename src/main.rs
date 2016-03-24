@@ -41,10 +41,10 @@ fn menu() -> u32 {
 
 fn game() -> bool {
     let menu_selection = menu();
-    let max_number = match menu_selection {
-        1 => 50,
-        2 => 100,
-        3 => 200,
+    let (max_number, mut count) = match menu_selection {
+        1 => (50, 7),
+        2 => (100, 6),
+        3 => (200, 5),
         _ => {
             // Exit game
             println!("Goodbye.");
@@ -55,7 +55,6 @@ fn game() -> bool {
 
     println!("Input a number between 1 and {}", max_number);
 
-    let mut count = 5;
     while count > 0 {
         let mut guess = String::new();
         io::stdin().read_line(&mut guess).expect("Failed to read line.");
