@@ -95,8 +95,7 @@ fn game() -> bool {
 
 fn main() {
     println!("Welcome to the Guessing Game!");
-    let mut play = true;
-    while play {
-        play = game();
+    while game() {
+        // pass
     }
 }
