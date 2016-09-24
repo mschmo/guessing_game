@@ -84,7 +84,7 @@ fn game() -> bool {
 
         count = count - 1;
         if count > 0 {
-            println!("Please guess again. {} guesses remainging.", count);
+            println!("Please guess again. {} guesses remaining.", count);
         } else {
             println!("Oh no! You ran out of guesses. The answer was {}.", secret_number);
         }
