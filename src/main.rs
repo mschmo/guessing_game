@@ -9,6 +9,10 @@
 use std::io;
 use std::cmp::Ordering;
 
+extern crate ansi_term;
+
+use ansi_term::Colour::*;
+
 mod helpers;
 
 
@@ -74,10 +78,10 @@ fn game() -> bool {
         };
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too low."),
-            Ordering::Greater => println!("Too high."),
+            Ordering::Less => println!("{}", Red.bold().paint("Too low.")),
+            Ordering::Greater => println!("{}", Blue.bold().paint("Too high.")),
             Ordering::Equal => {
-                println!("Correct!");
+                println!("{}", Green.bold().paint("Correct!"));
                 break;
             }
         }
